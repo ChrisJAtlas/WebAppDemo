@@ -13,6 +13,7 @@ builder.Services.AddDbContext<DataContext>(opt =>
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -21,6 +22,10 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+app.UseCors(x => x
+    .AllowAnyMethod().AllowAnyHeader()
+    .WithOrigins("http://localhost:4200").WithOrigins("https://localhost:4200"));
 
 app.MapControllers();
 
