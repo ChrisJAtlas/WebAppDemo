@@ -15,7 +15,7 @@ namespace API.Controllers;
         {
             if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
             
-            using var hmac = new HMACSHA512();
+            /* using var hmac = new HMACSHA512();
             var user = new AppUser
             {
                 UserName = registerDto.Username.ToLower(),
@@ -30,7 +30,9 @@ namespace API.Controllers;
             {
                 Username = user.UserName,
                 Token = tokenService.CreateToken(user)
-            };
+            };  */
+            
+            return Ok(); // Placeholder for the actual implementation
         }
 
         [HttpPost("login")]
