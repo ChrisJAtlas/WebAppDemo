@@ -5,6 +5,7 @@ using API.DTOs;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using API.Interfaces;
 
 namespace API.Controllers;
 
