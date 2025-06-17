@@ -1,5 +1,3 @@
-
-using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Helpers;
@@ -8,7 +6,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 
-namespace API;
+namespace API.Data;
 
 public class UserRepository(DataContext context, IMapper mapper) : IUserRepository
 {
@@ -63,11 +61,6 @@ public class UserRepository(DataContext context, IMapper mapper) : IUserReposito
         return await context.Users
             .Include(x => x.Photos)
             .ToListAsync();
-    }
-
-    public async Task<bool> SaveAllAsync()
-    {
-        return await context.SaveChangesAsync() > 0;
     }
 
     public void Update(AppUser user)
