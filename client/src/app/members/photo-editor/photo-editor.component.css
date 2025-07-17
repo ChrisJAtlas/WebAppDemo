@@ -1,3 +1,27 @@
 .nv-file-over {
     border: dotted 2px red
 }
+
+.photo-wrapper {
+  position: relative;   /* establishes a positioning context for absolute children */
+  display: inline-block;
+  overflow: hidden;
+}
+
+.unapproved {
+  display: block;
+  width: 100%;
+  filter: grayscale(80%) brightness(130%) contrast(80%);
+}
+
+.photo-unapproved {
+  position: absolute;
+  bottom: 1px;
+  left: 16px;
+  width: 100%;
+
+  color: red;
+  text-align: center;
+  padding: 8px 0;
+ 
+}

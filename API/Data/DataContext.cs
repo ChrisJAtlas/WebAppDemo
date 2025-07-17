@@ -9,10 +9,12 @@ public class DataContext(DbContextOptions<DataContext> options) : IdentityDbCont
                         IdentityUserClaim<int>, AppUserRole, IdentityUserLogin<int>,
                         IdentityRoleClaim<int>, IdentityUserToken<int>>(options)
 {
+    public string CurrentUsername { get; set; } = "";
     public DbSet<UserLike> Likes { get; set; }
     public DbSet<Message> Messages { get; set; }
     public DbSet<Group> Groups { get; set; }
     public DbSet<Connection> Connections  { get; set; }
+    public DbSet<Photo> Photos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -44,6 +46,16 @@ public class DataContext(DbContextOptions<DataContext> options) : IdentityDbCont
             .WithMany(l => l.LikedByUsers)
             .HasForeignKey(s => s.TargetUserId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Entity<Photo>()
+            .HasOne(s => s.AppUser)
+            .WithMany(l => l.Photos)
+            .HasForeignKey(s => s.AppUserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        //Req 3: No other user should be able to see unapproved photos.
+        builder.Entity<Photo>()
+            .HasQueryFilter(x => x.IsApproved || (!x.IsApproved && x.AppUser.UserName == CurrentUsername));
 
         builder.Entity<Message>()
             .HasOne(x => x.Recipient)

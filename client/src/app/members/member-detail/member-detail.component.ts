@@ -9,7 +9,7 @@ import { MemberMessagesComponent } from "../member-messages/member-messages.comp
 import { MessageService } from '../../_services/message.service';
 import { PresenceService } from '../../_services/presence.service';
 import { AccountService } from '../../_services/account.service';
-import { HubConnection, HubConnectionState } from '@microsoft/signalr';
+import { HubConnectionState } from '@microsoft/signalr';
 
 @Component({
   selector: 'app-member-detail',

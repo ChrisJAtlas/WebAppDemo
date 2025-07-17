@@ -1,1 +1,25 @@
-<p>photo-management works!</p>
+<div class="row">
+    @for (photo of photosForModeration(); track photo.id) {
+        <div class="col-2">            
+            <div class="text-left h4"> {{photo.username}}</div>
+            <img 
+                src="{{photo.url}}" 
+                alt="photo of user" 
+                class="photo img-thumbnail mb-1"
+            >
+            <div class="text-center">
+                <button 
+                    class="btn btn-sm me-1 btn-success active"
+                    (click)="approvePhoto(photo.id)"
+                >
+                Approve</button>
+                <button 
+                    class="btn btn-sm   btn-danger"
+                    (click)="rejectPhoto(photo.id)"
+                >
+                Reject </button>
+            </div>
+        </div>
+    }
+    
+</div>

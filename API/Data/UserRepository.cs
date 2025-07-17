@@ -10,12 +10,15 @@ namespace API.Data;
 
 public class UserRepository(DataContext context, IMapper mapper) : IUserRepository
 {
-    public async Task<MemberDto?> GetMemberAsync(string username)
+    public async Task<MemberDto?> GetMemberAsync(string username, string currentUsername)
     {
-       return await context.Users
-            .Where(x => x.UserName == username)
-            .ProjectTo<MemberDto>(mapper.ConfigurationProvider)
-            .SingleOrDefaultAsync();
+        //Req 3: No other user should be able to see unapproved photos.
+        context.CurrentUsername = currentUsername;
+
+        return await context.Users
+             .Where(x => x.UserName == username)
+             .ProjectTo<MemberDto>(mapper.ConfigurationProvider)
+             .SingleOrDefaultAsync();
     }
 
     public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
